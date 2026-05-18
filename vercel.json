@@ -1,7 +1,0 @@
-{
-  "functions": {
-    "app/api/early-access/route.ts": {
-      "maxDuration": 30
-    }
-  }
-}
