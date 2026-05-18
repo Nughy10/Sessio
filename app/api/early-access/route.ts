@@ -16,19 +16,20 @@ export async function POST(request: Request) {
       process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!
     );
 
-    // Guardar en background (sin esperar)
-    (async () => {
-      try {
-        await supabase
-          .from('early_access_waitlist')
-          .insert([{ email, name, created_at: new Date() }]);
-        console.log('Email guardado en Supabase');
-      } catch (err) {
-        console.error('Background insert error:', err);
-      }
-    })();
+    // Guardar en Supabase
+    const { error } = await supabase
+      .from('early_access_waitlist')
+      .insert([{ email, name, created_at: new Date() }]);
 
-    // Responder INMEDIATAMENTE al usuario
+    if (error) {
+      console.error('Supabase insert error:', error);
+      return Response.json(
+        { error: 'Error al guardar email' },
+        { status: 500 }
+      );
+    }
+
+    // Responder al usuario
     return Response.json(
       { success: true, message: '¡Registrado! Te enviaremos más info pronto.' },
       { status: 201 }
