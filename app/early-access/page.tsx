@@ -17,7 +17,7 @@ const translations = {
     problem2: 'Sin visibilidad',
     problem2Desc: 'Ni siquiera sabes por qué se van',
     problem3: 'Ingresos perdidos',
-    problem3Desc: '€500-5.000 por cliente desaparecido',
+    problem3Desc: '500€-5.000€ por cliente desaparecido',
     benefitsTitle: 'La solución Sessio',
     benefit1: 'Predicción IA',
     benefit1Desc: 'Detecta clientes en riesgo 7 días antes',
@@ -49,7 +49,7 @@ const translations = {
     problem2: 'No visibility',
     problem2Desc: 'You don\'t even know why they\'re leaving',
     problem3: 'Lost revenue',
-    problem3Desc: '€500-5,000 per client gone',
+    problem3Desc: '500€-5,000€ per client gone',
     benefitsTitle: 'The Sessio solution',
     benefit1: 'AI Prediction',
     benefit1Desc: 'Detects at-risk clients 7 days early',
@@ -92,7 +92,7 @@ export default function EarlyAccess() {
       const res = await fetch('/api/early-access', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, name }),
+        body: JSON.stringify({ email, name, language: language }),
       });
 
       if (res.ok) {
