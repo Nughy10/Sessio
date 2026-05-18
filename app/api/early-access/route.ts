@@ -17,10 +17,16 @@ export async function POST(request: Request) {
     );
 
     // Guardar en background (sin esperar)
-    supabase
-      .from('early_access_waitlist')
-      .insert([{ email, name, created_at: new Date() }])
-      .catch(err => console.error('Background insert error:', err));
+    (async () => {
+      try {
+        await supabase
+          .from('early_access_waitlist')
+          .insert([{ email, name, created_at: new Date() }]);
+        console.log('Email guardado en Supabase');
+      } catch (err) {
+        console.error('Background insert error:', err);
+      }
+    })();
 
     // Responder INMEDIATAMENTE al usuario
     return Response.json(
